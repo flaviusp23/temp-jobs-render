@@ -6,7 +6,7 @@ const helmet = require('helmet')
 const cors = require('cors');
 const xss = require('xss-clean')
 const rateLimiter = require('express-rate-limit')
-
+const morgan = require('morgan');
 
 const express = require('express');
 const app = express();
@@ -26,6 +26,7 @@ const notFoundMiddleware = require('./middleware/not-found');
 const errorHandlerMiddleware = require('./middleware/error-handler');
 
 //extra packages
+app.use(morgan('combined'))
 app.use(express.json());
 app.use(helmet())
 app.use(xss())
