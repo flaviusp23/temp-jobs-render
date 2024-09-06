@@ -1,0 +1,220 @@
+openapi: 3.0.0
+info:
+  title: jobs API
+  contact: {}
+  version: "1.0"
+servers:
+  - url: https://temp-jobs-render.onrender.com/api/v1
+    variables: {}
+paths:
+  /auth/login:
+    post:
+      tags:
+        - auth
+      summary: LOGIN
+      operationId: LOGIN
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/LOGINREQUEST"
+                - example:
+                    email: flavius.paltin@yahoo.com
+                    password: parola123
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/register:
+    post:
+      tags:
+        - auth
+      summary: REGISTER
+      operationId: REGISTER
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/REGISTERREQUEST"
+                - example:
+                    name: Ronaldo
+                    email: cr7@yahoo.com
+                    password: parola123
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+  /jobs:
+    get:
+      tags:
+        - jobs
+      summary: GET ALL JOBS
+      operationId: GETALLJOBS
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    post:
+      tags:
+        - jobs
+      summary: CREATE JOB
+      operationId: CREATEJOB
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/CREATEJOBREQUEST"
+                - example:
+                    company: google
+                    position: intern
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /jobs/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: the job id
+    get:
+      tags:
+        - jobs
+      summary: GET JOB
+      operationId: GETJOB
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    patch:
+      tags:
+        - jobs
+      summary: UPDATE JOB
+      operationId: UPDATEJOB
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/UPDATEJOBREQUEST"
+                - example:
+                    company: netflix
+                    position: manager
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    delete:
+      tags:
+        - jobs
+      summary: DELETE JOB
+      operationId: DELETEJOB
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+components:
+  schemas:
+    LOGINREQUEST:
+      title: LOGINREQUEST
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: flavius.paltin@yahoo.com
+        password: parola123
+    REGISTERREQUEST:
+      title: REGISTERREQUEST
+      required:
+        - name
+        - email
+        - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: Ronaldo
+        email: cr7@yahoo.com
+        password: parola123
+    CREATEJOBREQUEST:
+      title: CREATEJOBREQUEST
+      required:
+        - company
+        - position
+      type: object
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+      example:
+        company: google
+        position: intern
+    UPDATEJOBREQUEST:
+      title: UPDATEJOBREQUEST
+      required:
+        - company
+        - position
+      type: object
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+      example:
+        company: netflix
+        position: manager
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+  - name: auth
+  - name: jobs
