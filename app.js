@@ -37,9 +37,7 @@ app.use(
     max: 100, // limit each IP to 100 requests per windowMs
   })
 );
-app.use(cors({
-  origin: 'http://localhost:3000'
-}));
+app.use(cors());
 
 // routes
 app.use('/api/v1/auth',authRouter)
